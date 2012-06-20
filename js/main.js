@@ -1,4 +1,5 @@
-// VFW 1206 Project 3
+// VFW 1206 
+// Project 4
 // Anthony Torrez
 
 
@@ -17,7 +18,7 @@ window.addEventListener("DOMContentLoaded", function() {
     // Create the element for the select field and fill with options
      function makeCats( ) {
     console.log("Testing");
-        var genreTypes = [ "-- Choose a Genre or Subject --", "Art & Photography", "Biographies & Memoirs", "Children's Books", "Computers & Technolory", "Cookbooks, Food & Wine", "Crafts, Hobbies, and Home", "Education & Reference", "Health, Fitness & Dieting", "History", "Horror", "Humor", "Law","Literature & Fiction", "Manga & Graphic Novels", "Math & Science", "Medical", "Mystery, Crime, Thriller & Suspense", "Parenting & Relationships", "Religion & Spirituality", "Romance", "Sci Fi & Fantasy", "Self Help", "Sports & Outdoors", "Teens", "Travel", "Western"];
+        var genreTypes = [ "-- Choose a Genre or Subject --", "Art & Photography", "Biographies & Memoirs", "Children's Books", "Computers & Technology", "Cookbooks, Food & Wine", "Crafts, Hobbies & Home", "Education & Reference", "Health, Fitness & Dieting", "History", "Horror", "Humor", "Law","Literature & Fiction", "Manga & Graphic Novels", "Math & Science", "Medical", "Mystery, Crime, Thriller & Suspense", "Parenting & Relationships", "Religion & Spirituality", "Romance", "Sci Fi & Fantasy", "Self Help", "Sports & Outdoors", "Teens", "Travel", "Western"];
         var formTag = document.getElementsByTagName( "form" ),
             selectLi = $( 'subject' ),
             makeSelect = document.createElement( 'select' );
@@ -172,7 +173,8 @@ window.addEventListener("DOMContentLoaded", function() {
     function getData ( ) {
         toggleControls( "on" );
         if (localStorage.length === 0 ) {
-            alert ( "There is no data in Local Storage." );
+            alert ( "There is no data in Local Storage so default data was added." );
+            autoFillData();
         }
          var makeDiv = document.createElement( 'div' );
         makeDiv.setAttribute( "id", "items" );
@@ -191,6 +193,7 @@ window.addEventListener("DOMContentLoaded", function() {
             var obj = JSON.parse( value );
             var makeSubList = document.createElement( 'ul' );
             makeli.appendChild( makeSubList );
+            getImage( obj.genre[1], makeSubList );
             for (var n in obj ) {
                 var makeSubli = document.createElement( 'li' );
                 makeSubList.appendChild( makeSubli );
@@ -200,6 +203,25 @@ window.addEventListener("DOMContentLoaded", function() {
             }
          makeItemLinks( localStorage.key(i), linksLi);   // create the edit and delete buttons or links for each item in local storage.
         }
+    }
+    
+    
+	// Get the image for the genre being displayed
+	function getImage( catName, makeSubList ) {
+		var imageLi = document.createElement( 'li' );
+		makeSubList.appendChild( imageLi );
+		var newImg = document.createElement( 'img' );
+		var setSrc = newImg.setAttribute( "src", "images/" + catName + ".png" );
+		imageLi.appendChild(newImg);
+    }
+    
+	function autoFillData( ) {
+		// The actual JSON object data required for this to work is coming from the json.js which is loaded from the html page.
+    		// Store the JSON data into local storage
+    		for (var n in json) {
+    			var id = Math.floor(Math.random( )*1000000001);
+    			localStorage.setItem(id, JSON.stringify(json[n]));
+    		}
     }
                
     
