@@ -52,16 +52,14 @@ isaseries = rbuttons[ i ].value;
     function toggleControls( n ) {
         switch( n ) {
             case "on":
-                $( 'genreForm').style.display = "none";  // hide the form
+                $( 'genreForm').style.display = "none";
                 $( 'clearLink' ).style.display = "inline";
                 $( 'displayLink' ).style.display = "none";
-                $( 'refresh' ).style.display = "inline";
                 break;
             case "off":
                 $( 'genreForm').style.display = "block";
                 $( 'clearLink' ).style.display = "inline";
                 $( 'displayLink' ).style.display = "none";
-                $( 'refresh' ).style.display = "inline";  // decided to keep refresh option available at all times.
                 $( 'items' ).style.display = "none";
                 break;
             default:
@@ -115,7 +113,6 @@ item.genre = [ "Genre:", $( 'genre' ).value ];
 item.btitle = [ "Book Title:", $( 'btitle' ).value ];
 item.author = [ "Author:", $( 'author' ).value ];
 item.isbn = [ "ISBN #:", $( 'isbn' ).value ];
-item.comments = ["Comments:", $( 'comments' ).value ];
 item.series = [ "Series:", isaseries ]; // for radio buttons
 item.seriesname = [ "Series Name:", $( 'seriesname' ).value ];
 item.seriesnum = [ "Series Number:", $( 'seriesnum' ).value ];
@@ -140,7 +137,6 @@ alert ("Saved" );
         $( 'btitle' ).value = item.btitle[1];
         $( 'author' ).value = item.author[1];
         $( 'isbn' ).value = item.isbn[1];
-        $( 'comments' ).value = item.comments[1];
          $( 'seriesname' ).value = item.seriesname[1];
         $( 'seriesnum' ).value = item.seriesnum[1];
         var radios = document.forms[0].isaseries;
@@ -297,10 +293,10 @@ function autoFillData( ) {
         }
     }
     
-	function Back() {
-		console.log("move back one page");  
-		window.history.back();  // keeping this option as it might make sense later as I develop this app.
-	}
+function Back() {
+console.log("move back one page");
+window.history.back()
+}
     
      // Variable defaults
 // var isaseries;
