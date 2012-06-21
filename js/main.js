@@ -1,10 +1,10 @@
-// VFW 1206 
+// VFW 1206
 // Project 4
 // Anthony Torrez
 
 
 // Wait until the DOM is ready.
-window.addEventListener("DOMContentLoaded", function() { 
+window.addEventListener("DOMContentLoaded", function() {
 // alert (localStorage.value(0));
 
 
@@ -35,15 +35,15 @@ window.addEventListener("DOMContentLoaded", function() {
     
 
     // Variable defaults
-	var isaseries; 
+var isaseries;
    
-	// Get value of selected Radio Button
-	function getSelectedRadio( ) {
-		var rbuttons = document.forms[0].isaseries;
-	console.log(rbuttons);
-		for ( var i=0; i < rbuttons.length; i++ ) {
-			if ( rbuttons[ i ].checked) {
-			isaseries = rbuttons[ i ].value;
+// Get value of selected Radio Button
+function getSelectedRadio( ) {
+var rbuttons = document.forms[0].isaseries;
+console.log(rbuttons);
+for ( var i=0; i < rbuttons.length; i++ ) {
+if ( rbuttons[ i ].checked) {
+isaseries = rbuttons[ i ].value;
             }
         }
     }
@@ -52,14 +52,16 @@ window.addEventListener("DOMContentLoaded", function() {
     function toggleControls( n ) {
         switch( n ) {
             case "on":
-                $( 'genreForm').style.display = "none";
+                $( 'genreForm').style.display = "none";  // hide the form
                 $( 'clearLink' ).style.display = "inline";
                 $( 'displayLink' ).style.display = "none";
+                $( 'refresh' ).style.display = "inline";
                 break;
             case "off":
                 $( 'genreForm').style.display = "block";
                 $( 'clearLink' ).style.display = "inline";
                 $( 'displayLink' ).style.display = "none";
+                $( 'refresh' ).style.display = "none";
                 $( 'items' ).style.display = "none";
                 break;
             default:
@@ -73,13 +75,13 @@ window.addEventListener("DOMContentLoaded", function() {
     function makeItemLinks( key, linksLi ) {
         // add edit single item link
         var editLink = document.createElement( 'a' );
-        editLink.href = "#";      
+        editLink.href = "#";
         editLink.key = key;
         console.log(editLink.key);
         var editText = "Edit Book Info";
         editLink.addEventListener( "click", editItem );
         editLink.innerHTML = editText;
-        linksLi.appendChild( editLink );     
+        linksLi.appendChild( editLink );
         
         // add a line break
         var breakTag = document.createElement( 'br' );
@@ -97,29 +99,30 @@ window.addEventListener("DOMContentLoaded", function() {
 
     
     
-	function storeData(key) {
-		// If there is no key, then this is a brand new item and needs a key.
-		if (!key) {
-			var id = Math.floor(Math.random( )*1000000001);          // collect and store all form field values as a object.  
-		} else {
-			// Set the id of the existing key we're editing so that it will save over the data
-			//    This is the same key that has been passed along from the editSubmit event handler
-			//    to the Validate function, and then passed here, into the storeData function
-			id = key;   
-	}   
-		getSelectedRadio( );                                                         // calls the value of the radio button        
-		var item     = { };                                                                      
-			item.genre             = [ "Genre:", $( 'genre' ).value ];               
-			item.btitle               = [ "Book Title:", $( 'btitle' ).value ];           
-			item.author            = [ "Author:", $( 'author' ).value ];
-			item.isbn                = [ "ISBN #:", $( 'isbn' ).value ];
-			item.series             = [ "Series:",  isaseries ];                           // for radio buttons
-			item.seriesname    = [ "Series Name:", $( 'seriesname' ).value ];
-			item.seriesnum      = [ "Series Number:", $( 'seriesnum' ).value ];
-		// Save data to local storage using JSON stringify to convert objects to a string.    
-		localStorage.setItem( id, JSON.stringify( item ) );
-		alert ("Saved" );
-	}
+function storeData(key) {
+// If there is no key, then this is a brand new item and needs a key.
+if (!key) {
+var id = Math.floor(Math.random( )*1000000001); // collect and store all form field values as a object.
+} else {
+// Set the id of the existing key we're editing so that it will save over the data
+// This is the same key that has been passed along from the editSubmit event handler
+// to the Validate function, and then passed here, into the storeData function
+id = key;
+}
+getSelectedRadio( ); // calls the value of the radio button
+var item = { };
+item.genre = [ "Genre:", $( 'genre' ).value ];
+item.btitle = [ "Book Title:", $( 'btitle' ).value ];
+item.author = [ "Author:", $( 'author' ).value ];
+item.isbn = [ "ISBN #:", $( 'isbn' ).value ];
+item.comments = ["Comments:", $( 'comments' ).value ];
+item.series = [ "Series:", isaseries ]; // for radio buttons
+item.seriesname = [ "Series Name:", $( 'seriesname' ).value ];
+item.seriesnum = [ "Series Number:", $( 'seriesnum' ).value ];
+// Save data to local storage using JSON stringify to convert objects to a string.
+localStorage.setItem( id, JSON.stringify( item ) );
+alert ("Saved" );
+}
       
     
 
@@ -137,6 +140,7 @@ window.addEventListener("DOMContentLoaded", function() {
         $( 'btitle' ).value = item.btitle[1];
         $( 'author' ).value = item.author[1];
         $( 'isbn' ).value = item.isbn[1];
+        $( 'comments' ).value = item.comments[1];
          $( 'seriesname' ).value = item.seriesname[1];
         $( 'seriesnum' ).value = item.seriesnum[1];
         var radios = document.forms[0].isaseries;
@@ -167,7 +171,7 @@ window.addEventListener("DOMContentLoaded", function() {
         } else {
             alert ( "The book was NOT deleted");
         }
-    }    
+    }
   
 
     function getData ( ) {
@@ -199,29 +203,29 @@ window.addEventListener("DOMContentLoaded", function() {
                 makeSubList.appendChild( makeSubli );
                 var optSubText = obj[ n ] [ 0 ]+ " " +obj[ n ] [ 1 ];
                 makeSubli.innerHTML = optSubText;
-                makeSubList.appendChild(linksLi);    
+                makeSubList.appendChild(linksLi);
             }
-         makeItemLinks( localStorage.key(i), linksLi);   // create the edit and delete buttons or links for each item in local storage.
+         makeItemLinks( localStorage.key(i), linksLi); // create the edit and delete buttons or links for each item in local storage.
         }
     }
     
     
-	// Get the image for the genre being displayed
-	function getImage( catName, makeSubList ) {
-		var imageLi = document.createElement( 'li' );
-		makeSubList.appendChild( imageLi );
-		var newImg = document.createElement( 'img' );
-		var setSrc = newImg.setAttribute( "src", "images/" + catName + ".png" );
-		imageLi.appendChild(newImg);
+// Get the image for the genre being displayed
+function getImage( catName, makeSubList ) {
+var imageLi = document.createElement( 'li' );
+makeSubList.appendChild( imageLi );
+var newImg = document.createElement( 'img' );
+var setSrc = newImg.setAttribute( "src", "images/" + catName + ".png" );
+imageLi.appendChild(newImg);
     }
     
-	function autoFillData( ) {
-		// The actual JSON object data required for this to work is coming from the json.js which is loaded from the html page.
-    		// Store the JSON data into local storage
-    		for (var n in json) {
-    			var id = Math.floor(Math.random( )*1000000001);
-    			localStorage.setItem(id, JSON.stringify(json[n]));
-    		}
+function autoFillData( ) {
+// The actual JSON object data required for this to work is coming from the json.js which is loaded from the html page.
+     // Store the JSON data into local storage
+     for (var n in json) {
+     var id = Math.floor(Math.random( )*1000000001);
+     localStorage.setItem(id, JSON.stringify(json[n]));
+     }
     }
                
     
@@ -242,7 +246,7 @@ window.addEventListener("DOMContentLoaded", function() {
         var getGenre = $( 'genre' );
         console.log('genre');
         var getBtitle = $( 'btitle' );
-        var getAuthor = $( 'author' ); 
+        var getAuthor = $( 'author' );
         
         // Reset Error Messages
         var errMsg = $('errors');
@@ -283,23 +287,23 @@ window.addEventListener("DOMContentLoaded", function() {
                 txt.innerHTML = messageArray[i];
                 errMsg.appendChild( txt );
             }
-	 
+
             event.preventDefault();
             return false;
         } else {
-            // If all is OK, save the data.  Send the key value from the editData function.
+            // If all is OK, save the data. Send the key value from the editData function.
             // The key value was passed through the editSubmit event listener as a property.
             storeData( this.key );
-        }    
+        }
     }
     
-	function Back() {
-		console.log("move back one page");
-		window.history.back()
-	}
+function Back() {
+console.log("move back one page");
+window.history.back()
+}
     
      // Variable defaults
-//    var isaseries;
+// var isaseries;
    makeCats( );
     
     // Set Link and Submit Click Events

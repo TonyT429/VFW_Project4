@@ -6,7 +6,7 @@ CSS styles for my VFW 1206 Project
 */
 
 body {
-	background: #907B71;
+	background: tan;
 	overflow: scroll;
 }
 
@@ -18,15 +18,12 @@ h1 {
 	margin: 10 px;
 	border: 4px solid red;
 	background: #FFE5B4;
-	width: 310px;
+	width: 295px;
 	text-align: center;
+	line-height: 40px;
 	padding: 20 px  ;
-	outline:    ;
-	height:   ;
-	display:   ;
-	overflow:   ;
-	visibility:   ;
-	word-wrap:   ;
+	outline-color: yellow;
+	font-style: oblique;
 
 }
 
@@ -35,33 +32,46 @@ h2 {
 	border:  4px solid red;
 	background: #FFE5B4;
 	text-align: center;
-	width: 300px;
+	width: 295px;
 	padding: 20 px;
+	font-style: italic;
 
-	outline:   ;
-	height:   ;
-	display:   ;
-	overflow:   ;
-	visibility:   ;
-	word-wrap:   ;
-	
 }
 fieldset {
 	border: 3px solid red;
-	width: 330 px;
 	background: #FFE5B4;
 }
 
 p {
 	margin: 20 px;
-	text-align: center;
+	font-style: oblique;
+	font-size: 20px;
+	text-align: align left;
 	text-indent: 20 px;
 	font: verdana, tehoma, geneva ;
+}
+
+a {
+	color: blue;
+	font-size: large;
+	font-style: italic;
+}
+a:active {
+	color: yellow;
+	font-size: large;
+	font-style: italic;
+}
+
+legend {
+	font-style: oblique;
+	font-size: large;
 	color: blue;
 }
 
-a:active {
-	color: yellow;
+li {
+	color: purple;
 }
 
-
+input {
+	color: blue;
+}
